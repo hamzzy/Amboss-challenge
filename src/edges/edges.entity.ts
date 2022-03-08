@@ -5,24 +5,24 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
 @Entity()
 export class Edges {
-  @Field()
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
+  @Field({ nullable: false })
   @Column('int')
   capcity: number;
 
-  @Field()
+  @Field({ nullable: false })
   @Column('text')
   node1_alias: string;
 
-  @Field()
+  @Field({ nullable: false })
   @Column('text')
   node2_alias: string;
 

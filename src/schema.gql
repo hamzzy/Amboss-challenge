@@ -1,5 +1,6 @@
-type  {
-	id: Number!
+type Edge{
+	id: Int!
+	capcity: Int!
 	node1_alias: String!
 	node2_alias: String!
 	createdAt: String!
@@ -7,15 +8,23 @@ type  {
 }
 
 
-
-
 type Query{
-
-
+  getEdges(): [Edge!]!
+  getEdge(id: Int!): Edge!
 }
 
 type Mutation{
+    createEdge(input: createEdgeInput!): Edge
+	updateEdge(id: Int!, input: UpdateEdgeInput!): Boolean
+	removeEdge(id:Int): Boolean
+}
 
-    # createEdge(input: CreateUserInput!): User
-	# updateUser(id: String!, input: UpdateUserInput!): Boolean
+input createEdgeInput{
+	node1_alias: String!
+	node2_alias: String!
+}
+
+input UpdateEdgeInput{
+	node1_alias: String!
+	node2_alias: String!
 }
