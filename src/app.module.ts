@@ -10,11 +10,17 @@ import { DatabaseModule } from './database.module';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      debug: true,
-      playground: true,
-    }),
+    // GraphQLModule.forRoot<ApolloDriverConfig>({
+    //   driver: ApolloDriver,
+    //   autoSchemaFile: 'schema.gql',
+    //   debug: false,
+    //   playground: false,
+    // }),
+    // GraphQLModule.forRoot({
+
+    //   debug: false,
+    //   playground: false,
+    // }),
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),

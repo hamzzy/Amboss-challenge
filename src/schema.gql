@@ -1,0 +1,21 @@
+type  {
+	id: Number!
+	node1_alias: String!
+	node2_alias: String!
+	createdAt: String!
+	updatedAt: String!
+}
+
+
+
+
+type Query{
+
+
+}
+
+type Mutation{
+
+    # createEdge(input: CreateUserInput!): User
+	# updateUser(id: String!, input: UpdateUserInput!): Boolean
+}
