@@ -1,7 +1,6 @@
-
 export interface RabbitmqMessage {
   route: string;
-  data: any
+  data: any;
 }
 
 // export interface RabbitmqMessage {

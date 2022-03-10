@@ -14,7 +14,6 @@ import { Edges } from './edges.entity';
 import { AmqpConnection, RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { ConsumeMessage, Channel } from 'amqplib';
 
-
 @Injectable()
 export class EdgesService {
   private logger: Logger;
@@ -69,5 +68,4 @@ export class EdgesService {
     await this.edgeRepository.remove(edge);
     return true;
   }
-
 }

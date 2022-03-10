@@ -10,9 +10,9 @@ import { RabbitmqMessage } from './interface/rabbitMq.interface';
 
 @Resolver(() => Edges)
 export class EdgesResolver {
-  constructor(private readonly edgeService: EdgesService) {}
-  public get_edge_data: Edges[];
+  public get_edge_data: any;
   public update_edge_data: Edges;
+  constructor(private readonly edgeService: EdgesService) {}
 
   @RabbitSubscribe({
     exchange: 'edges-exchange',
@@ -25,7 +25,7 @@ export class EdgesResolver {
   })
   public async onQueueConsumption(msg: RabbitmqMessage) {
     if (msg.route === 'add-edges') {
-      const data = await JSON.parse(JSON.stringify(msg.data));
+      const data = JSON.parse(JSON.stringify(msg.data));
       this.get_edge_data = data;
       console.log(
         `New channel between ${data.node1_alias} and ${data.node2_alias} with a capacity of ${data.capcity} has been created`,
@@ -42,7 +42,7 @@ export class EdgesResolver {
   @Mutation(() => Edges)
   public async createEdge(
     @Args('createEdgeInput') createEdgeInput: CreateEdgeInput,
-  ): Promise<Edges[]> {
+  ): Promise<Edges> {
     await this.edgeService.create(createEdgeInput);
     return this.get_edge_data;
   }
@@ -72,7 +72,9 @@ export class EdgesResolver {
   }
 
   @Mutation(() => Boolean)
-  async removeEdge(@Args('id', { type: () => Int }) id: number) {
+  async removeEdge(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<boolean> {
     return await this.edgeService.remove(id);
   }
 }
