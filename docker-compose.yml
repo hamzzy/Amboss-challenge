@@ -14,17 +14,17 @@ services:
  
   pgadmin:
     links:
-    - postgres:postgres
+      - postgres:postgres
     container_name: pgadmin_container
     image: dpage/pgadmin4
     ports:
-    - "8080:80"
+      - "8080:80"
     volumes:
-    - ./data/pgadmin:/var/lib/pgadmin
+      - ./data/pgadmin:/var/lib/pgadmin
     env_file:
-    - .env
+      - .env
     networks:
-    - postgres
+      - postgres
  
 
   rabbitmq:
@@ -36,6 +36,8 @@ services:
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    env_file:
+      - .env
     networks:
         - rabbitmq_go_net
 

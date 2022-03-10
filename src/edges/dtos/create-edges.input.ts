@@ -1,11 +1,15 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsOptional, Length, MaxLength } from 'class-validator';
+import { IsEmpty, IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateEdgeInput {
-  @Field()
-  node1_alias: string;
+  @Field({ nullable: false })
+  @IsString()
+  @IsNotEmpty()
+  node1_alias?: string;
 
   @Field({ nullable: false })
-  node2_alias: string;
+  @IsString()
+  @IsNotEmpty()
+  node2_alias?: string;
 }
