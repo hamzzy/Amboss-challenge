@@ -1,10 +1,12 @@
 <h1>A solution to amboss technical test<h1>
 # Tools
+ 
 - nestjs
 - Typescript
 - Rabbitmq
 - docker
 - postgresSQL
+- GraphQL
 
  To  make the application work you need to follow the step below 
 ## Installation
