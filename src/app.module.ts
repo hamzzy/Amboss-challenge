@@ -10,16 +10,6 @@ import { DatabaseModule } from './database.module';
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 @Module({
   imports: [
-    // RabbitMQModule.forRoot(RabbitMQModule, {
-    //   exchanges: [
-    //     {
-    //       name: 'edges-exchange',
-    //       type: 'topic',
-    //     },
-    //   ],
-    //   uri: 'amqp://guest:guest@localhost:5672',
-    //   connectionInitOptions: { wait: false },
-    // }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,

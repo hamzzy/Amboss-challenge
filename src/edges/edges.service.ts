@@ -27,7 +27,7 @@ export class EdgesService {
   async create(createEdgeInput: CreateEdgeInput): Promise<any> {
     const capacity = getRandomInt(10000, 1000000);
     const edge = this.edgeRepository.create({
-      capcity: capacity,
+      capacity: capacity,
       ...createEdgeInput,
     });
     const data = await this.edgeRepository.save(edge);

@@ -16,7 +16,7 @@ export class Edges {
 
   @Field({ nullable: false })
   @Column('int')
-  capcity: number;
+  capacity: number;
 
   @Field({ nullable: false })
   @Column('text')

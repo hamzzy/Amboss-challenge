@@ -1,4 +1,4 @@
-import { RabbitRPC, RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { NotFoundException } from '@nestjs/common';
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateEdgeInput } from './dtos/create-edges.input';
@@ -20,10 +20,10 @@ export class EdgesResolver {
     queue: 'edge-queue',
     errorHandler: (channel: Channel, msg: ConsumeMessage, error: Error) => {
       console.log(error);
-      channel.reject(msg, false); // use error handler, or otherwise app will crush in not intended way
+      channel.reject(msg, false);
     },
   })
-  async onQueueConsumption(msg: RabbitmqMessage) {
+  public async onQueueConsumption(msg: RabbitmqMessage) {
     if (msg.route === 'add-edges') {
       const data = await JSON.parse(JSON.stringify(msg.data));
       this.get_edge_data = data;
@@ -40,7 +40,7 @@ export class EdgesResolver {
   }
 
   @Mutation(() => Edges)
-  async createEdge(
+  public async createEdge(
     @Args('createEdgeInput') createEdgeInput: CreateEdgeInput,
   ): Promise<Edges[]> {
     await this.edgeService.create(createEdgeInput);
@@ -48,12 +48,14 @@ export class EdgesResolver {
   }
 
   @Query(() => [Edges], { name: 'getEdges' })
-  async getEdges() {
+  public async getEdges(): Promise<Edges[]> {
     return await this.edgeService.findAll();
   }
 
   @Query(() => Edges, { name: 'getEdge' })
-  async getEdge(@Args('id', { type: () => Int }) id: number): Promise<Edges> {
+  public async getEdge(
+    @Args('id', { type: () => Int }) id: number,
+  ): Promise<Edges> {
     const edge_result = await this.edgeService.findOne(id);
     if (!edge_result) {
       throw new NotFoundException(id);
@@ -62,12 +64,14 @@ export class EdgesResolver {
   }
 
   @Mutation(() => Edges)
-  async updateEdge(@Args('updateEdgeInput') updateEdgeInput: UpdateEdgeInput) {
+  async updateEdge(
+    @Args('updateEdgeInput') updateEdgeInput: UpdateEdgeInput,
+  ): Promise<Edges> {
     await this.edgeService.update(updateEdgeInput.id, updateEdgeInput);
     return this.update_edge_data;
   }
 
-  @Mutation(() => Edges)
+  @Mutation(() => Boolean)
   async removeEdge(@Args('id', { type: () => Int }) id: number) {
     return await this.edgeService.remove(id);
   }

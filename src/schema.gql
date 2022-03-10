@@ -3,10 +3,11 @@ type Edge{
 	capcity: Int!
 	node1_alias: String!
 	node2_alias: String!
-	createdAt: String!
-	updatedAt: String!
+	createdAt: Date!
+	updatedAt: Date!
 }
 
+scalar Date
 
 type Query{
   getEdges(): [Edge!]!
@@ -14,9 +15,9 @@ type Query{
 }
 
 type Mutation{
-    createEdge(input: createEdgeInput!): Edge
-	updateEdge(id: Int!, input: UpdateEdgeInput!): Boolean
-	removeEdge(id:Int): Boolean
+    createEdge(input: createEdgeInput!): Edge!
+	updateEdge(id: Int!, input: UpdateEdgeInput!): Edge!
+	removeEdge(id:Int): Boolean!
 }
 
 input createEdgeInput{
